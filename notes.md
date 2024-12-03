@@ -23,7 +23,7 @@ De methode `validate_on_submit()` in Flask-WTF combineert twee belangrijke actie
 
 Als beide voorwaarden waar zijn, retourneert deze methode **True**. Als een van de twee niet waar is, retourneert het **False**.
 
-**Validate met Flask-WTF gebeurt server-side (niet in de browser), maar wel voordat de database bereikt wordt.**
+**Validate met Flask-WTF gebeurt webserver-side (niet in de browser), maar wel voordat de databaseserver bereikt wordt.**
 
 Dit betekent dat de validatie plaatsvindt nadat de gebruiker het formulier heeft ingediend en 
 de gegevens naar de server zijn verzonden.
@@ -48,7 +48,7 @@ in het formulier via `{{ form.hidden_tag() }}`.
 overeenkomt met het token dat in de sessie is opgeslagen. Als dat niet het geval is, wordt het verzoek geweigerd
 met een **403 Forbidden** fout.
 
-### Waarom is dit veilig
+### Waarom is dit veilig?
 
 Een kwaadwillende kan geen toegang krijgen tot het CSRF-token dat in de sessie van de gebruiker is opgeslagen, omdat:
 - Het token alleen in de server en via het formulier beschikbaar is.
