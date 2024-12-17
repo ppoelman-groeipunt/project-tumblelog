@@ -22,11 +22,6 @@ def load_user(user_id):
 
 
 # Define routes
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -62,6 +57,37 @@ def logout():
     logout_user()
     flash('Logged out successfully.', 'info')
     return redirect(url_for('login'))
+
+
+@app.route('/', methods=['GET', 'POST'])
+@login_required
+def index():
+    form = PostForm()
+    # POST-request
+    if form.validate_on_submit():
+        p = TextPost(title=form.title.data, content=form.content.data, author=current_user)
+        p.save()
+        flash('Post created!', 'success')
+        return redirect(url_for('index'))
+    # GET-request
+    posts = TextPost.objects.order_by('-timestamp')
+    return render_template('index.html', form=form, posts=posts)
+
+
+@app.route('/post/<post_id>', methods=['GET', 'POST'])
+@login_required
+def post(post_id):
+    p = Post.objects(id=post_id).first()
+    form = CommentForm()
+    # POST-request
+    if form.validate_on_submit():
+        comment = Comment(content=form.content.data, author=current_user)
+        p.comments.append(comment)
+        p.save()
+        flash('Comment added!', 'success')
+        return redirect(url_for('post', post_id=post_id))
+    # GET-request
+    return render_template('post.html', post=p, form=form)
 
 
 if __name__ == '__main__':

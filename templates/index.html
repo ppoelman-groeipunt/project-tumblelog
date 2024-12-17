@@ -1,5 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome, {{ current_user.alias }}!</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Welcome, {{ current_user.alias }}!</h1>
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <h2 class="h4">Create a Post</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">{{ form.title.label }}</label>
+                    {{ form.title(class_='form-control', id='title') }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="content" class="form-label">{{ form.content.label }}</label>
+                    {{ form.content(class_='form-control', id='content') }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="mb-4">Posts</h2>
+
+    {% for post in posts %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text">
+                <small class="text-muted">By {{ post.author.alias }} on {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+                    }}</small>
+            </p>
+            <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-link">View Comments</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

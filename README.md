@@ -1,9 +1,9 @@
 # Tumblelog App
 
 Flask application with MongoDB and following features:
-- User authentication (registration and login)
-- Adding posts (TODO)
-- Commenting on posts (TODO)
+- User authentication (registration, login en logout)
+- Adding posts
+- Commenting on posts
 
 # Requirements
 

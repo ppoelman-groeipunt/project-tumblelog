@@ -41,6 +41,7 @@ een actie uit te voeren op een website waarop hij is ingelogd, door een vervalst
 https://www.techdepot.nl/cross-site-request-forgery-csrf/
 
 ### Hoe werk CSRF-beveiliging?
+
 - Bij het renderen van een formulier (GET) genereert Flask-WTF een CSRF-token.
 - Dit token wordt opgeslagen in de sessie van de gebruiker (server-side) en toegevoegd als een verborgen veld 
 in het formulier via `{{ form.hidden_tag() }}`.
