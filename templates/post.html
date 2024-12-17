@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <p class="lead">{{ post.content }}</p>
+    <p class="text-muted"><small>By {{ post.author.alias }} on {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        }}</small></p>
+    <hr class="my-4">
+
+    <h2 class="mt-5">Comments</h2>
+    {% for comment in post.comments %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">{{ comment.content }}</p>
+            <p class="text-muted"><small>By {{ comment.author.alias }} on {{ comment.timestamp.strftime('%Y-%m-%d
+                %H:%M:%S') }}</small></p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <h2 class="mt-5">Add a Comment</h2>
+    <form method="POST" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="content">{{ form.content.label }}</label>
+            {{ form.content(class="form-control", rows=3) }}
+        </div>
+        <div class="form-group mt-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
+
